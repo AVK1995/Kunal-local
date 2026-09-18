@@ -287,32 +287,26 @@ export function toggleMulti(value: string, option: string, all: readonly string[
    ===================================================================== */
 
 /**
- * The PDF's routing logic (page 5), implemented in full.
+ * Routing — SOFTENED at the client's request. ONE gate only:
  *
- * PASS, and only then, is every one of these true:
- *     role   is not "Not currently working"
- *  AND Q08   is not "No, I’m looking for free advice or resources"
- *  AND Q10   is Rs.1 lakh a month or above
- *  AND Q11   is "Yes, I make my own financial decisions"
+ *     Q08 is "No, I’m looking for free advice or resources"  →  disqualified
+ *     anything else                                          →  qualified
  *
- * Anything else routes to /thank-you-disqualified.
+ * Role, income and decision-maker used to be gates too (the PDF's original
+ * page-5 logic). They were dropped so the call itself does the filtering; the
+ * answers still travel to Pabbly as q01_role / q10_income / q11_decision_maker
+ * for segmentation, they just never route anyone away.
  *
- * NOT a gate: Q09, the coaching tier. All three tiers are real programmes, so
- * that answer tells whoever takes the call which one to open with. The PDF is
- * explicit that it must never disqualify, and its on-screen hint promises the
- * applicant the same.
+ * NOT a gate: Q09, the coaching tier — it only tells the closer which tier to
+ * open with, and its on-screen hint promises the applicant it won't count
+ * against them.
  *
- * Borderline answers PASS by design, per the PDF: "Possibly, I haven’t decided
- * yet" on Q08 and "Rs.1 to Rs.2 lakh" on Q10 both reach the calendar, because
- * the call itself is the final filter for those.
- *
- * Each rule carries the copy shown to the applicant and the answer id it
- * reads, so the disqualified page and the email quote the right answer back
- * instead of guessing which condition tripped.
+ * The rule carries the copy shown to the applicant and the answer id it reads,
+ * so the disqualified page and the email quote the right answer back.
  */
 export type FailRule = {
   /** Stable machine value. Goes to Pabbly as `disqualified_reason`. */
-  code: "role_not_working" | "invest_no" | "income_below" | "not_decision_maker";
+  code: "invest_no";
   /** Which question on the form this gate reads. Drives display order. */
   q: number;
   /** Which answer it reads — a `qualifySteps` id. */
@@ -324,11 +318,8 @@ export type FailRule = {
   failed: (a: Record<string, string>) => boolean;
 };
 
-/** The exact option strings the rules match. Verified against qualifySteps below. */
-export const NOT_WORKING_OPTION = "Not currently working";
+/** The exact option string the one rule matches. Verified against qualifySteps below. */
 export const DISQUALIFYING_ANSWER = "No, I’m looking for free advice or resources";
-export const INCOME_BELOW_OPTION = "Below Rs.1 lakh";
-export const DECISION_MAKER_OPTION = "Yes, I make my own financial decisions";
 
 /** The step that carries the Q08 rule, so the guard and the UI agree on one id. */
 export const DISQUALIFYING_STEP_ID = "investReady";
@@ -345,41 +336,12 @@ export const FAIL_RULES: readonly FailRule[] = [
     text: "We only book calls with people who are prepared to invest in a structured 90-day program if it turns out to be the right fit. It is 1:1 coaching with Kunal and it is paid, so the call ends in an offer. There is no free version to point you at.",
     failed: (a) => (a.investReady ?? "").trim() === DISQUALIFYING_ANSWER,
   },
-  {
-    code: "role_not_working",
-    q: 1,
-    from: "role",
-    label: "Currently working in a professional or business role",
-    text: "The programme is built around a demanding career, and the coaching is priced for people currently earning from one. It is not the right fit while you are between roles.",
-    failed: (a) => (a.role ?? "").trim() === NOT_WORKING_OPTION,
-  },
-  {
-    code: "income_below",
-    q: 10,
-    from: "income",
-    label: "Monthly income of Rs.1 lakh or above",
-    text: "The programme starts at Rs.15,000 for three months. Below Rs.1 lakh a month that is a stretch we would rather not put you under.",
-    failed: (a) => (a.income ?? "").trim() === INCOME_BELOW_OPTION,
-  },
-  {
-    code: "not_decision_maker",
-    q: 11,
-    from: "decisionMaker",
-    label: "Able to make the enrolment decision yourself",
-    text: "The call ends in a decision about a paid programme, so we book it with the person who can actually make that decision on the day.",
-    failed: (a) => {
-      const v = (a.decisionMaker ?? "").trim();
-      // Unanswered does not fail: the modal cannot submit without it, and a
-      // partial payload arriving at /api/lead should not invent a reason.
-      return v.length > 0 && v !== DECISION_MAKER_OPTION;
-    },
-  },
 ];
 
 /**
- * The same four gates in FORM order, which is the order a person reads them.
- * FAIL_RULES stays in priority order because its first entry is the primary
- * reason; this is purely for display.
+ * The gates in FORM order, for display. With the softened routing there is
+ * only one, but the page and the email iterate this list, so adding a gate
+ * back later is a one-entry change to FAIL_RULES.
  */
 export const GATES_IN_FORM_ORDER: readonly FailRule[] = [...FAIL_RULES].sort((a, b) => a.q - b.q);
 
@@ -416,12 +378,7 @@ function assertQualifyRuleIntact(): void {
     return s && s.kind === "choice" ? s.options : [];
   };
 
-  const pairs: Array<[string, string]> = [
-    ["investReady", DISQUALIFYING_ANSWER],
-    ["role", NOT_WORKING_OPTION],
-    ["income", INCOME_BELOW_OPTION],
-    ["decisionMaker", DECISION_MAKER_OPTION],
-  ];
+  const pairs: Array<[string, string]> = [["investReady", DISQUALIFYING_ANSWER]];
   for (const [id, needle] of pairs) {
     if (!optionsOf(id).includes(needle)) {
       throw new Error(

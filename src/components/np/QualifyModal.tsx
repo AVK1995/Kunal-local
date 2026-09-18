@@ -186,7 +186,7 @@ export function QualifyModal() {
 
       /* ---- Conversion events ------------------------------------------
          GA4: complete_registration for everyone who finishes the form,
-         qualified_lead only for the ones who pass all four gates.
+         qualified_lead only for the ones who pass the investment gate.
          META CAPI: /api/meta/registration sends CompleteRegistration for
          everyone and QualifiedLead on top when `qualified` is true.
 
@@ -220,7 +220,7 @@ export function QualifyModal() {
       }
 
       /* The one fork: everyone reaches the calendar EXCEPT the applicant who
-         trips one of the four gates. `name` + `email` prefill Calendly. */
+         trips the investment gate. `name` + `email` prefill Calendly. */
       window.location.href = disqualified
         ? DISQUALIFIED_PATH
         : `${site.bookUrl}?name=${encodeURIComponent(name.first)}&email=${encodeURIComponent(email)}`;

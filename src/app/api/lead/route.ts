@@ -100,8 +100,9 @@ export async function POST(req: NextRequest) {
     };
 
     /* Recomputed server-side rather than trusted from the client. The browser
-       sends `qualified`, but this decides the value Pabbly stores. Four gates,
-       all from the PDF's routing logic — see FAIL_RULES in qualify.ts. */
+       sends `qualified`, but this decides the value Pabbly stores. One gate
+       (softened routing): only the "free advice" answer on Q08 disqualifies —
+       see FAIL_RULES in qualify.ts. */
     const failed = failedRules(answers);
     const qualified = !isDisqualified(answers);
     /* Which gate tripped, so Pabbly can segment and the disqualified email can
@@ -115,7 +116,7 @@ export async function POST(req: NextRequest) {
       disqualified_answer: primary ? (answers[primary.from as keyof typeof answers] ?? "") : "",
     };
 
-    /* ---- The four gates, PRE-RENDERED ------------------------------------
+    /* ---- The gate checklist, PRE-RENDERED ------------------------------------
        An earlier version shipped 28 separate gate1_label … gate4_border
        fields and expected the email template to assemble them. That is
        unmappable in Pabbly's UI, and the alternative — four IF/ELSE branches
@@ -169,17 +170,14 @@ export async function POST(req: NextRequest) {
       gates_html,
       /** Same thing for the plain-text part. */
       gates_text,
-      /** "Q8, Q10" — handy for a Sheet column or a filter step. */
+      /** "Q8" when the one gate failed, "" otherwise. */
       failed_questions: failed.map((r) => `Q${r.q}`).sort().join(", "),
-      /** Per question, for a Sheet row or hand-built conditions. */
-      gate_q1_answer: answers.role,
-      gate_q1_status: gateRows.find((g) => g.rule.q === 1)?.s.status ?? "",
+      /** The single gate (softened routing), for a Sheet row or a filter step.
+          The old gate_q1 / gate_q10 / gate_q11 keys were dropped with those
+          gates; the raw answers still arrive as q01_role / q10_income /
+          q11_decision_maker. */
       gate_q8_answer: answers.investReady,
       gate_q8_status: gateRows.find((g) => g.rule.q === 8)?.s.status ?? "",
-      gate_q10_answer: answers.income,
-      gate_q10_status: gateRows.find((g) => g.rule.q === 10)?.s.status ?? "",
-      gate_q11_answer: answers.decisionMaker,
-      gate_q11_status: gateRows.find((g) => g.rule.q === 11)?.s.status ?? "",
     };
 
     const fbc = req.cookies.get("_fbc")?.value ?? "";
