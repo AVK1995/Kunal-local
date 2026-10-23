@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { LegalLayout, LegalSection } from "@/components/LegalLayout";
 import { site } from "@/lib/site";
 
@@ -34,7 +33,7 @@ export default function TermsPage() {
     >
       <LegalSection id="service" heading="The service">
         <p>
-          Kraft With Kunal provides health and fitness coaching for high-performing professionals. Booking a
+          Kraft With Kunal provides health and fitness coaching for Marathi working professionals, businessmen and entrepreneurs. Booking a
           paid assessment secures a review of your situation and a conversation with Kunal. It is an
           application: <strong>it is not a guarantee of enrolment</strong> into any program.
         </p>
@@ -67,8 +66,7 @@ export default function TermsPage() {
       <LegalSection id="payments" heading="Payments">
         <p>
           The assessment fee shown at checkout is charged at the time of booking to confirm your slot. Program
-          fees, if you go on to enrol, are discussed separately on the call. See our{" "}
-          <Link href="/refund">Refund Policy</Link> for cancellations and refunds.
+          fees, if you go on to enrol, are discussed separately on the call.
         </p>
       </LegalSection>
 

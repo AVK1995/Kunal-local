@@ -1,120 +1,146 @@
 /**
- * Kraft With Kunal — LP copy, structured.
+ * Kraft With Kunal — LP copy, structured. MARATHI FUNNEL.
  *
- * SOURCE OF TRUTH: "Kunal Full Funnel Seggregation.md" (client-signed, supersedes
- * funnel-copy/01-landing-vsl.v2-nobrainer.md wherever the two disagree). Every
+ * SOURCE OF TRUTH: "Kunal Project File.md" (the Marathi-audience landing copy,
+ * supplied 2026-10-23). It supersedes "Kunal Full Funnel Seggregation.md" and the
+ * older High-Performer Protocol positioning everywhere the two disagree. Every
  * headline, bullet, deliverable, guarantee term and FAQ below is verbatim from
  * that document or a minimal typographic tidy of it.
  *
  * Numbers that the client may want to tune post-launch live in src/lib/site.ts as
- * env-overridable values (fee, success stories, rating, kilo range) — never
- * retyped inline.
+ * env-overridable values (success stories, rating, kilo range, promise days) —
+ * never retyped inline.
  */
 
 import { site, kiloRange } from "./site";
 
-/* ---- Top trust banner (S01) — funnel md hero strip line 1 ----
-   Split into number + label so each figure can be given its own emphasis on
-   the brass bar; a single bolded run blended into the background. */
-export const trustBanner = {
-  storiesNum: site.successStories,
-  storiesLabel: "Success Stories",
-  perClientNum: "15-20 kgs",
-  perClientLabel: "lost per client",
+/* ---- Top trust bar (S01 + S02) — the doc's two-line strip ----
+   Line 1 → S01 (brass bar), line 2 → S02 (avatars + rating + guarantee + audience). */
+export const trustLine1 = [
+  `${site.successStories} Clients Coached`,
+  "ACSM Certified",
+  "Trained International Cricketers",
+] as const;
+
+export const trustLine2Audience = "Built For Marathi Men";
+
+/* ---- Hero ---- */
+export const hero = {
+  callout: "For Marathi Working Professionals, Businessmen & Entrepreneurs Aged 35+",
+  promise: `Achieve Your Fitness Goal In ${site.promiseDays} Days. Or Your Programme Is On Me.`,
+  noGivingUp: "No giving up Poli-Bhaji, Varan-Bhaat or Bhakri. No crash diets. No endless hours in the gym.",
+  coach: {
+    eyebrow: "Meet Your Coach",
+    name: "Kunal Chalke",
+    role: "Athlete-Turned-Fitness Coach · ACSM Certified · HYROX Head Judge",
+    line: "Athlete-turned-coach who now trains busy Marathi working professionals.",
+    photo: "/kunal-coach.jpg",
+  },
 } as const;
 
-/* ---- Program OUTCOMES — funnel md hero, the four achieved-results chips ---- */
-export const outcomes = [
-  "10x Energy Levels",
-  "70-80% Increased Strength",
-  "Better Quality Sleep",
-  "Improved Blood Markers",
+/* The five-item strip under the hero CTA. `icon` keys map to src/components/icons.tsx. */
+export const heroPointers = [
+  { icon: "clock", label: "Fits 10–12 Hour Workdays" },
+  { icon: "globe", label: "Travel-Friendly Plans" },
+  { icon: "dumbbell", label: "Gym Or Home" },
+  { icon: "chat", label: "Weekly 1:1 Check-Ins" },
+  { icon: "star", label: "Marathi, Hindi & English Support" },
 ] as const;
 
-/* ---- Hero ledger — funnel md 4-cell stat row under the hero CTA ---- */
-export const heroStats = [
-  { k: site.successStories, v: "High-Performers Coached" },
-  { k: `${site.avgTransformWeeks}wk`, v: "Avg. Transformation" },
-  { k: `${site.clientRating} ★`, v: "Client Rating" },
-  /* Was `site.assessmentFee` ("₹97 To Start") in the paid funnel. This funnel
-     charges nothing at any step, so a rupee figure here is a price claim with
-     no price behind it. */
-  { k: "₹0", v: "To Start" },
-] as const;
+/** The line printed under every CTA button. */
+export const ctaScarcity = "Limited consultation slots available each week.";
+export const ctaLabel = "Book Your Free 1:1 Fitness Strategy Call";
 
-/* ---- The three CTA reassurance badges — funnel md, repeated under every CTA ---- */
-export const ctaBadges = [
-  { icon: "star", label: "100% Results Guarantee" },
-  { icon: "flame", label: `${site.successStories} Success Stories` },
-  { icon: "globe", label: "Trusted by High-Performers Globally" },
-] as const;
-
-/* ---- "This Is For You if" — funnel md, five ✓ rows ---- */
-export const fitYes = [
+/* ---- "Does This Sound Like You?" — six rows + the closing line ---- */
+export const soundsLikeYou = [
   {
-    head: "You've built a successful career earning ₹25 lakhs+ a year,",
-    body: "but your body is the one area that hasn't kept up.",
+    head: "Your belly has grown over the last few years.",
+    body: "Between office hours, business meetings and family responsibilities, you've barely found time to take care of yourself.",
   },
   {
-    head: "You've lost weight before, only to gain it back when work got busy,",
-    body: "travel increased, or life got in the way.",
+    head: "Your shirts and trousers don't fit the way they used to.",
+    body: "You've started buying bigger sizes, and you know you've gained more weight than you're comfortable with.",
   },
   {
-    head: "Your latest health check made you pause.",
-    body: "Whether it was cholesterol, blood sugar or blood pressure, you know it's time to act before medication becomes your only option.",
+    head: "You've joined a gym or started a diet multiple times.",
+    body: "You see some progress initially, but the moment work gets hectic, the routine breaks and the weight comes back.",
   },
   {
-    head: "You're not looking for another 12-week challenge.",
-    body: "You're looking for a system that fits your life and delivers results that last.",
+    head: "You don't want to stop eating the food your family cooks.",
+    body: "You enjoy your regular पोळी-भाजी, वरण-भात, भाकरी and occasional restaurant meals. You need a plan that works with them.",
   },
   {
-    head: "You want honest, no-nonsense coaching from someone who's walked this path himself",
-    body: "and understands what it takes to balance fitness with business, family and responsibility.",
+    head: "Your recent health reports have started worrying you.",
+    body: "Whether it's cholesterol, blood sugar, blood pressure or increasing belly fat, you want to take your health more seriously.",
+  },
+  {
+    head: "You want to get fitter without compromising your career or family time.",
+    body: "You need someone to tell you exactly what to eat, how to train and what to change when your schedule gets busy.",
   },
 ] as const;
 
-/* ---- Elite-athlete authority block — funnel md "The HIGH-PERFORMER PROTOCOL" ---- */
-export const eliteAthlete = {
-  eyebrow: "The High-Performer Protocol",
-  heading: "From International Cricketers To Business Leaders, High Performers Trust The High-Performer Protocol",
-  name: "Yashasvi Jaiswal",
-  role: "Indian International Cricketer",
-  body: "The High-Performer Protocol is built on the same principles of discipline, consistency and performance that elite athletes rely on. Today, those same standards help businessmen and senior professionals achieve extraordinary fitness results.",
-  /* Supplied by the client (renamed from "yashswi jaswal.png" — Vercel's
-     filesystem is case-sensitive and spaces would need encoding). It is a tall
-     portrait, so the frame is 3/4 and anchors to the top to keep both faces. */
-  photo: "/kunal-yashasvi.png",
-  photoReady: true,
-} as const;
+export const soundsLikeYouClose =
+  "If you relate to these situations, this programme was designed for men like you.";
 
-/* ---- Founder / "Meet Your Coach" — funnel md, verbatim ---- */
+/* ---- The MARATHI Framework — seven letters. The doc sets the final "I"
+   (Initial Body Assessment) apart as a full-width row; `wide` carries that. ---- */
+export const marathiFramework = [
+  {
+    letter: "M",
+    title: "Muscle-First Fat Loss",
+    body: "Personalised strength workouts built around your fitness level and available time, whether at home or in the gym. Lose excess fat while maintaining muscle and building strength.",
+  },
+  {
+    letter: "A",
+    title: "Aahar: Your Regular Food",
+    body: "Poli-Bhaji, Varan-Bhaat, Bhakri, Misal or your favourite non-veg meals. We personalise portions, protein and calories so you can lose fat without giving up your everyday food.",
+  },
+  {
+    letter: "R",
+    title: "Regular 1:1 Coaching",
+    body: "Weekly personal check-ins with Kunal to review your weight, waist, strength and progress photos. Get direct feedback, accountability and adjustments instead of figuring everything out yourself.",
+  },
+  {
+    letter: "A",
+    title: "Adaptive Fitness Planning",
+    body: "Late office hours, business travel, client dinners or family functions? Your workouts and nutrition are adjusted around your changing schedule so one busy week doesn't derail your progress.",
+  },
+  {
+    letter: "T",
+    title: "Technique & Injury Support",
+    body: "Send workout videos directly to Kunal for exercise-form corrections. Your training is modified around old injuries, physical limitations and recovery needs so you can progress more safely.",
+  },
+  {
+    letter: "H",
+    title: "Habits That Last",
+    body: `The goal isn't to follow a strict diet forever. You learn how to manage your food, workouts and progress even after ${site.promiseDays} days, so maintaining your transformation becomes part of your lifestyle.`,
+  },
+  {
+    letter: "I",
+    title: "Initial Body Assessment",
+    body: `Your weight, body fat, muscle, waist, strength, health history and work schedule are assessed. Then we agree on a realistic, measurable ${site.promiseDays}-day fitness target.`,
+    wide: true,
+  },
+] as const;
+
+/* ---- Meet Kunal — certifications (pills) + press/cert rail ---- */
 export const founderPills = [
-  "ACSM Certified Professional",
-  "ASCA Level 1 Strength & Conditioning",
+  "ACSM Certified Fitness Professional",
+  "ASCA Level 1 Strength & Conditioning Coach",
   "INFS Certified Fitness & Nutrition Coach",
   "HYROX Head Judge",
 ] as const;
 
-export const founderStory = [
-  "Kunal Chalke is an athlete-turned-fitness coach, ACSM Certified Professional, ASCA Level 1 Strength & Conditioning Coach, INFS Certified Fitness & Nutrition Coach, and HYROX Head Judge, combining elite athletic standards with science-backed coaching.",
-  `Today, through ${site.brand}, he's helped ${site.successStories} businessmen, senior professionals and athletes lose weight, build strength and create lasting habits using the High-Performer Protocol, designed around demanding careers, not perfect routines.`,
-  "He coaches every client personally. That's why the room stays small, and why the plan is never a template.",
-] as const;
-
 /**
- * Press + certification rail (funnel md "Meet Your Coach" table).
+ * Press + certification rail (the doc's five linked images under "Meet Kunal").
  *
- * All five assets are now in `/public/credentials/`, renamed from the client's
+ * All five assets are in `/public/credentials/`, renamed from the client's
  * originals to lowercase, space-free paths — Vercel serves from a case-sensitive
  * filesystem, so "Power list.png" is a 404 waiting to happen.
  *
  * `ready` gates the image: false renders a titled brass plate instead of a broken
- * frame and still links out. Kept in place so a swapped-out or pending asset is a
- * one-flag change rather than a layout break.
- *
- * `focus` sets the background-position for that card. Press screenshots are tall,
- * so they anchor to the top to keep the masthead and headline in frame;
- * certificates are near-landscape and sit centred.
+ * frame. `focus` sets the background-position: press screenshots are tall, so
+ * they anchor to the top; certificates are near-landscape and sit centred.
  */
 export const credentials = [
   {
@@ -154,9 +180,6 @@ export const credentials = [
     ready: true,
   },
   {
-    /* The supplied certificate is the INFS Exercise Science Specialist course —
-       the md listed it only as "Certified Exercise Science Specialist", so the
-       issuing body is named here from the document itself. */
     kind: "Certification",
     title: "Certified Exercise Science Specialist",
     source: "INFS",
@@ -167,59 +190,13 @@ export const credentials = [
   },
 ] as const;
 
-/* ---- The Mechanism — four phases, now a scroll-assembled timeline ----
-   Not covered by the funnel md, so the phase copy is unchanged. What DID change
-   is the framing: the md sells a 12-week programme, so weeks 1-12 are labelled as
-   the programme itself and weeks 13-26 as the continuation the md's FAQ describes
-   ("If you choose to continue, the next phase shifts towards body recomposition").
-   `icon` keys map to the glyph set in src/components/icons.tsx. */
-export const phases = [
-  {
-    n: "01",
-    label: "Weeks 1 to 4",
-    stage: "Your 12-week programme",
-    title: "Assessment & Reset",
-    icon: "stethoscope",
-    body: "A full workup: history, body composition, your real week, injuries, blood work, read together. The plan is built to your calendar. Training starts in three days.",
-  },
-  {
-    n: "02",
-    label: "Weeks 5 to 12",
-    stage: "Your 12-week programme",
-    title: "Fat Loss",
-    icon: "flame",
-    body: "A real but liveable deficit. Two numbers run the show: protein and steps. Training three to four days, harder on purpose, with a weekly check-in and adjustment.",
-  },
-  {
-    n: "03",
-    label: "Weeks 13 to 20",
-    stage: "If you continue",
-    title: "Recomposition",
-    icon: "dumbbell",
-    body: "Food comes back up, strength ramps, and the body gets built, not just lighter. Travel weeks and restaurant weeks get planned for, not feared.",
-  },
-  {
-    n: "04",
-    label: "Weeks 21 to 26",
-    stage: "If you continue",
-    title: "Lifestyle Lock",
-    icon: "lock",
-    body: "You learn to run your own week. Markers retested against your baseline. The result is made permanent.",
-  },
-] as const;
-
-/* ---- Transformations marquee (before/after at a glance) ----
-   The funnel md instructs "[Keep ONLY male transformation photos]". Each card is
-   a self-contained plate with the client's name printed on it, so the three
-   female clients were identified by inspection and removed:
-     ba-2 Trupti · ba-4 Archana · ba-5 Manpreet          → withdrawn
-     ba-1 Vaibhav · ba-3 Vinayak · ba-6 Ashish · ba-7 Kaushabh → kept
-   The withdrawn files stay in /public so nothing is destroyed and a decision to
-   bring any back is a one-line change.
-
-   Order matters: the rail reads left to right and ba-7 is the strongest fit for
-   this funnel's audience (its own caption says corporate job, busy schedule,
-   95kg → 75kg in six months), so it leads. */
+/* ---- Before/after rails ----
+   The doc asks for TWO rows of five (row 1 drifts left→right, row 2 right→left).
+   Only four male transformation plates exist today (the three female plates —
+   ba-2 Trupti, ba-4 Archana, ba-5 Manpreet — stay withdrawn; this funnel is
+   "Built For Marathi Men"). Until more plates are supplied, both rows draw from
+   the same four, in a different order so the two rows never line up.
+   TO ADD PLATES: drop them in /public/transformations and list them below. */
 export const baCards = [
   "/transformations/ba-7.jpg", // Kaushabh — corporate, 95→75kg in 6 months
   "/transformations/ba-1.jpg", // Vaibhav
@@ -227,16 +204,26 @@ export const baCards = [
   "/transformations/ba-6.jpg", // Ashish
 ] as const;
 
+export const baRows = [
+  ["/transformations/ba-7.jpg", "/transformations/ba-1.jpg", "/transformations/ba-3.jpg", "/transformations/ba-6.jpg"],
+  ["/transformations/ba-3.jpg", "/transformations/ba-6.jpg", "/transformations/ba-7.jpg", "/transformations/ba-1.jpg"],
+] as const;
+
+/* ---- Client chat screenshots ("Here's A Glimpse Into Our Clients' Journeys") ----
+   Two rows of five in the doc. NO SCREENSHOTS HAVE BEEN SUPPLIED YET, so both
+   rows are empty and the whole block stays hidden. Drop the files in
+   /public/chats (e.g. chat-1.jpg … chat-10.jpg) and list them here — the block
+   renders as soon as either row has an entry. */
+export const chatRows: readonly [readonly string[], readonly string[]] = [[], []];
+
 /* ---- Video testimonials — names confirmed in the funnel md ---- */
 export const testimonialNames = ["Ashish R", "Vaibhav", "Ashish", "Kaushabh"] as const;
 
 /**
  * Face framing for the trust-strip avatar circles.
  *
- * The avatars reuse each testimonial's opening video frame, and those three
- * clips are shot very differently: one is a close-up selfie, two are standing
- * mid-shots where the head sits near the top. A single crop cannot serve all
- * three, so each carries its own zoom + vertical anchor.
+ * The avatars reuse each testimonial's opening video frame, and those clips are
+ * shot very differently, so each carries its own zoom + vertical anchor.
  *
  *   zoom  — background-size as a % of the circle's width (100% = plain cover)
  *   focus — background-position-y; 0% shows the top of the frame, 100% the base
@@ -253,128 +240,126 @@ export const testimonialAvatarCrop = [
   { zoom: "150%", focus: "22%" }, // Kaushabh — selfie, 464×832; zoomed out to show the whole head
 ] as const;
 
-/* ---- "Everything Included In Your 12-Week Programme" — funnel md, six items ---- */
+/* ---- "Everything You Get" — six inclusions ---- */
 export const deliverables = [
   {
     n: "01",
-    title: "Complete health & lifestyle assessment",
+    title: "Complete Body & Lifestyle Assessment",
     icon: "stethoscope",
-    body: "We start by understanding your body, your schedule and your health. Your body composition, eating habits, training history, injuries, lifestyle and blood work all come together to build a plan that's designed specifically for you.",
+    body: `We assess your weight, body fat, waist, strength, eating habits and work schedule. Then we agree on a clear, realistic ${site.promiseDays}-day transformation target.`,
   },
   {
     n: "02",
-    title: "Your personalised training blueprint",
+    title: "Workouts Built Around Your Work Hours",
     icon: "dumbbell",
-    body: "A progressive training plan built around your calendar, whether you're travelling, working long hours or training from home. Every exercise includes video demonstrations and regular updates as you get stronger.",
+    body: "Personalised strength and fat-loss workouts for home or gym. Long office days or business travel? Your training is adjusted to fit your available time.",
   },
   {
     n: "03",
-    title: "Personalised nutrition & supplement plan",
+    title: "Nutrition From Your Own Kitchen",
     icon: "plate",
-    body: "No restrictive diets. No foods you can never eat again. Your calories, protein, meal timing, restaurant meals, travel and supplements are all planned around your lifestyle, not someone else's.",
+    body: "Poli-Bhaji, Varan-Bhaat, Bhakri and your regular family meals stay. We personalise your portions, protein and calories without requiring separate cooking.",
   },
   {
     n: "04",
-    title: "Weekly coaching & WhatsApp accountability",
+    title: "Weekly 1:1 Coaching With Kunal",
     icon: "chat",
-    body: "Every week, you'll check in directly with Kunal. Your progress, photos, weight and feedback are reviewed, your plan is adjusted, and you'll always know the next step instead of guessing.",
+    body: "Every week, Kunal reviews your weight, waist, workouts and progress. You get direct feedback, accountability and adjustments whenever your routine changes.",
   },
   {
     n: "05",
-    title: "Form corrections & injury support",
+    title: "Exercise Form & Technique Corrections",
     icon: "shieldBody",
-    body: "Record your workouts, send them directly to Kunal and receive detailed technique corrections. If you're managing shoulder, knee or back issues, your training is adapted so you can continue progressing safely.",
+    body: "Send your workout videos directly to Kunal for form corrections. Your exercises are adapted to your fitness level, recovery needs and physical limitations.",
   },
   {
     n: "06",
-    title: "Progress tracking & long-term habit coaching",
+    title: "Progress Tracking & Long-Term Maintenance",
     icon: "chart",
-    body: "Track your weight, waist measurements, strength and progress photos while building habits that survive busy work weeks, travel and family commitments, so your results actually last.",
+    body: `Track changes in your weight, waist, strength and body composition. Build a practical routine to help maintain your results after the first ${site.promiseDays} days.`,
   },
 ] as const;
 
-/* ---- The four erased costs. Effort/Time now carry the funnel md's own numbers
-   ("45-60 minutes, 3-5 days a week"), and Risk points at the new guarantee. ---- */
-export const fourCosts = [
-  {
-    k: "Effort",
-    icon: "clock",
-    v: "45 to 60 minutes, 3 to 5 days a week, built around your calendar, not a gym-rat's.",
-  },
-  {
-    k: "Time",
-    icon: "bolt",
-    v: "Training starts in three days, not after a 12-week “foundation.”",
-  },
-  {
-    k: "Risk",
-    icon: "shield",
-    v: "The 100% Results Guarantee (below). Miss the outcome and every rupee comes back.",
-  },
-  {
-    k: "Money",
-    icon: "rupee",
-    v: "No hard number on this page. What it costs, and whether it's even a fit, is a conversation Kunal has with you directly, after he's seen your situation.",
-  },
-] as const;
-
-/* ---- 100% Results Guarantee — funnel md, replaces the old four-week rebuild ---- */
+/* ---- 100% Results Guarantee ----
+   The same promise is mirrored on /refund; both read from here so they cannot
+   drift apart. */
 export const guarantee = {
   badge: "100% Results Guarantee",
-  promise: `If you don't lose between ${kiloRange} kilos within your ${site.promiseDays}-day programme, we'll refund every rupee you paid us.`,
-  qualifyLabel: "To Qualify",
-  qualify: [
-    "Simply commit to the process. Follow your personalised nutrition and training plan, complete your weekly check-ins, and submit your progress updates as requested. If you do your part and don't achieve the agreed outcome, we'll honour our guarantee.",
-    "If your starting BMI is already close to a healthy range, your goal may shift from weight loss to body recomposition, waist reduction, muscle gain or improving key health markers. Your personalised success target will be agreed upon before you join.",
-    `The guarantee applies for the first ${site.promiseDays} days of your programme.`,
+  titleLead: "Achieve Your Fitness Goal.",
+  titleAccent: "Or Get Your Money Back.",
+  body: [
+    `Before your programme begins, Kunal will assess your starting point and agree on a realistic ${site.promiseDays}-day transformation target with you.`,
+    `For eligible clients, this may involve losing ${kiloRange} kilos. For others, the target may focus on waist reduction, body recomposition or other measurable fitness outcomes.`,
   ],
+  /* The conditional sentence; the refund clause is bolded by the component. */
+  conditionLead:
+    "If you follow your personalised nutrition and training plan, complete your weekly check-ins and submit the required progress updates, but fail to achieve your agreed guaranteed outcome within the programme period, ",
+  conditionBold: "your programme fee will be refunded under the guarantee terms.",
+  footnote: "Full eligibility and adherence conditions will be explained before enrolment.",
 } as const;
 
-/* ---- FAQ — funnel md "Common Questions", nine items, order preserved ---- */
+/* ---- FAQ — "Questions Busy Men Commonly Ask", order preserved ---- */
 export const faqs = [
   {
-    q: "I've tried gyms, diets and personal trainers before. Why would this be different?",
-    a: "Most fitness plans fail because they're built for people with predictable schedules. The High-Performer Protocol is built around your work, travel and responsibilities. Instead of asking you to change your life to fit the plan, we build the plan around your life and adjust it every week as things change.",
+    q: "Do I have to stop eating rice, roti or my regular food?",
+    a: "No. Your plan will be designed around the food you normally eat at home, including पोळी, भाजी, वरण-भात, भाकरी and other favourites. Kunal will help you adjust portions, protein and meal combinations according to your fitness goals.",
     mostAsked: true,
   },
   {
-    q: "I barely have time as it is. How much time do I actually need?",
-    a: "Around 45-60 minutes, 3-5 days a week, depending on your goal and experience. Your programme is designed around your calendar, so whether you're travelling, working long hours or training from home, you'll always know exactly what to do.",
+    q: "I work 10–12 hours a day. Will I realistically be able to follow this?",
+    a: "Yes, the programme is designed for busy working professionals and businessmen. Kunal will understand your weekly schedule and create a training and nutrition routine that fits your availability. You'll also have weekly reviews to make adjustments when work gets demanding.",
     mostAsked: false,
   },
   {
-    q: "I travel frequently for work. Will I still be able to follow the programme?",
-    a: "Yes. Travel is expected, not treated as a setback. Your nutrition, workouts and restaurant choices are adapted to your schedule so you can stay consistent whether you're at home, in a hotel or travelling internationally.",
+    q: "I'm already 40 or 45+. Is it too late to lose belly fat and build strength?",
+    a: "No. Your age, current fitness level, medical history and recovery capacity will be considered while designing your plan. You won't be expected to train like a 25-year-old athlete.",
     mostAsked: false,
   },
   {
     q: "Do I need to join a gym?",
-    a: "No. The programme can be customised for a fully equipped gym, a basic gym or even home workouts with minimal equipment. We'll recommend the best setup based on your circumstances.",
+    a: "Not necessarily. Kunal can design your programme around the equipment and space you have available, whether that's at home or in a gym.",
     mostAsked: false,
   },
   {
-    q: "What if I have knee pain, back pain or an old injury?",
-    a: "Your programme is built around your body's limitations, not against them. Training is modified where required, and if you're already working with a physiotherapist or doctor, those recommendations can be incorporated into your plan.",
+    q: "What if I travel frequently or eat out for business meetings?",
+    a: "Your nutrition and workout plans can be adjusted for travel, hotel stays, restaurant meals and irregular workdays. The goal is to help you remain consistent even when your schedule isn't perfect.",
     mostAsked: false,
   },
   {
-    q: "Do I have to give up eating out or drinking?",
-    a: "No. The goal isn't to remove the foods you enjoy. Your nutrition plan includes practical strategies for client dinners, family outings, travel and social occasions, so you can lose weight without feeling like your life has stopped.",
+    q: "Will I work directly with Kunal?",
+    a: "Yes. Kunal personally reviews your progress, provides weekly coaching feedback and helps make adjustments throughout your programme.",
     mostAsked: false,
   },
   {
-    q: `What happens after the first ${site.promiseDays} days?`,
-    a: `The first ${site.promiseDays} days are focused on building momentum and creating visible results. If you choose to continue, the next phase shifts towards body recomposition, building more muscle, improving strength and making your results sustainable for the long term.`,
+    q: "What happens on the free fitness strategy call?",
+    a: `Kunal will understand your current fitness level, weight-loss goals, work schedule, food habits and previous attempts. He'll explain what your personalised ${site.promiseDays}-day approach could look like and whether the programme is suitable for you.`,
     mostAsked: false,
   },
   {
-    q: "What if I don't get the promised results?",
-    a: "If you complete the programme as coached, follow your personalised training and nutrition plan, attend your weekly check-ins and submit your progress updates, you're covered by our Results Guarantee. Full details are shared on the guarantee section of this page.",
+    q: `What happens after the ${site.promiseDays} days?`,
+    a: "The aim is to help you transition into a sustainable routine for maintaining your results. You'll work on the nutrition, training and lifestyle habits needed to continue managing your fitness independently.",
     mostAsked: false,
   },
-  {
-    q: "Will I be working directly with Kunal?",
-    a: "Yes. This isn't a programme handed off to junior trainers. Kunal personally oversees your coaching, reviews your progress, adjusts your plan and works with you throughout your transformation.",
-    mostAsked: false,
-  },
+] as const;
+
+/* ======================================================================
+   LEGACY — not rendered on the Marathi landing page.
+   Kept only because dormant components (EliteAthlete, FourCosts) still
+   import them; remove together with those components if they are deleted.
+   ====================================================================== */
+export const eliteAthlete = {
+  eyebrow: "Trained International Cricketers",
+  heading: "From International Cricketers To Marathi Working Professionals",
+  name: "Yashasvi Jaiswal",
+  role: "Indian International Cricketer",
+  body: "Kunal has worked with international cricketers and athletes. The same principles of training, nutrition and recovery now power the MARATHI Framework.",
+  photo: "/kunal-yashasvi.png",
+  photoReady: true,
+} as const;
+
+export const fourCosts = [
+  { k: "Effort", icon: "clock", v: "Workouts built around your work hours, at home or in the gym." },
+  { k: "Time", icon: "bolt", v: `A clear, measurable ${site.promiseDays}-day target agreed before you start.` },
+  { k: "Risk", icon: "shield", v: "The 100% Results Guarantee. Miss the agreed outcome and your programme fee is refunded under the guarantee terms." },
+  { k: "Money", icon: "rupee", v: "The strategy call is free. Fees are discussed only once Kunal has seen your situation." },
 ] as const;

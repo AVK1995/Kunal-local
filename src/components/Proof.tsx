@@ -36,8 +36,11 @@
  * exactly as SDP ships them — they render image-only with no caption body.
  */
 import { site } from "@/lib/site";
-import { baCards, testimonialNames } from "@/lib/content";
+import { baCards, baRows, chatRows, testimonialNames } from "@/lib/content";
 import { isMediaFile, vimeoThumbs } from "@/lib/vimeo";
+
+/* Unique chat screenshots across both rows — the chat lightbox steps through these. */
+const chatPool: string[] = Array.from(new Set([...chatRows[0], ...chatRows[1]]));
 
 /* SDP's inline play triangle (LandingPage.tsx:944) — same path, same viewBox. */
 function PlayGlyph() {
@@ -77,16 +80,17 @@ export async function Proof() {
       <div className="sdp-wrap">
         <div className="sdp-center">
           <div className="sdp-eyebrow center" data-sdp-reveal>
-            Real senior professionals · Real results
+            Not Fitness Influencers. Real Working Men. Real Transformations.
           </div>
         </div>
         <h2 className="sdp-h2" data-sdp-reveal style={{ ["--d" as string]: ".06s" }}>
-          See How High-Performing Businessmen Lost 13-20 Kilos{" "}
-          <em>Without Putting Their Careers On Hold.</em>
+          See How Busy Professionals Lost <span style={{ whiteSpace: "nowrap" }}>8–20 Kilos</span>{" "}
+          <br className="brk-desktop" />
+          <em>While Managing Their Careers &amp; Families</em>
         </h2>
         <p className="sdp-sub" data-sdp-reveal style={{ ["--d" as string]: ".10s" }}>
-          These aren&rsquo;t fitness influencers. They&rsquo;re businessmen, professionals and
-          entrepreneurs just like you.
+          These are men who had demanding jobs, business responsibilities, travel schedules and
+          families to look after. They didn&rsquo;t put their lives on hold to get fit.
         </p>
       </div>
 
@@ -162,50 +166,30 @@ export async function Proof() {
             stays drag/swipe-scrollable. Arrows now live on the certificates rail. */}
       </div>
 
-      <div className="sdp-wrap">
-        <h3 className="s06-ba-head" data-sdp-reveal>
-          Before &amp; After Transformations
-        </h3>
-      </div>
+      {/* ---------- Before/after: two rails, opposite directions ----------
+          Per the copy doc: row 1 drifts left→right, row 2 right→left. Both rails
+          share kind "bacar", so they feed ONE lightbox; each card's index is its
+          position in `baCards`, so a plate repeated across rows opens as itself. */}
+      <ImageRail kind="bacar" dir={1} srcs={baRows[0]} pool={baCards} alt="Client transformation, before and after" />
+      <ImageRail kind="bacar" dir={-1} srcs={baRows[1]} pool={baCards} alt="Client transformation, before and after" />
 
-      {/* ---------- Before/after carousel (SDP `.sdp-bacar`) ----------
-          The rail and its manual nav are siblings: the buttons must sit OUTSIDE
-          `.s06-bacar`, which is both edge-masked (they'd fade out) and the drag
-          surface (a press on a button would start a drag). */}
-      <div className="sdp-wrap s06-bacar-wrap">
-        <div className="s06-bacar" id="s06-bacar" data-carousel="bacar" data-sdp-reveal>
-          <div className="s06-bacar-track" data-carousel-track>
-            <div className="s06-bacar-set" data-carousel-set>
-              {baCards.map((src, idx) => (
-                <div
-                  className="s06-ba-card"
-                  key={src}
-                  data-ba-idx={idx}
-                  data-ba-src={src}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Open client transformation ${idx + 1}`}
-                >
-                  <div className="s06-ba-img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt="Client transformation, before and after"
-                      width={1000}
-                      height={1000}
-                      loading="lazy"
-                      decoding="async"
-                      draggable={false}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* ---------- Client chat screenshots ----------
+          Hidden until the screenshots are supplied (content.ts `chatRows`). */}
+      {chatPool.length > 0 && (
+        <>
+          <div className="sdp-wrap">
+            <h3 className="s06-ba-head s06-chat-head" data-sdp-reveal>
+              Here&rsquo;s A Glimpse Into Our Clients&rsquo; Journeys
+            </h3>
           </div>
-        </div>
-        {/* Manual prev/next removed at client request — the rail auto-scrolls and
-            stays drag/swipe-scrollable. Arrows now live on the certificates rail. */}
-      </div>
+          {chatRows[0].length > 0 && (
+            <ImageRail kind="chatcar" dir={1} srcs={chatRows[0]} pool={chatPool} alt="Client chat with Kunal" chat />
+          )}
+          {chatRows[1].length > 0 && (
+            <ImageRail kind="chatcar" dir={-1} srcs={chatRows[1]} pool={chatPool} alt="Client chat with Kunal" chat />
+          )}
+        </>
+      )}
 
       {/* ---------- Overlay shells (inert until ClientBehaviors adds `.on`) ----------
           They live INSIDE the section on purpose: the ported CSS is scoped to
@@ -223,31 +207,91 @@ export async function Proof() {
         </div>
       </div>
 
-      <div className="s06-lbox" data-lbox="bacar" role="dialog" aria-modal="true" aria-hidden="true" hidden>
-        <div className="s06-lbox-content">
-          <button className="s06-lbox-close" type="button" aria-label="Close" data-lbox-close>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-          <button className="s06-lbox-nav s06-lbox-prev" type="button" aria-label="Previous" data-lbox-nav="-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="s06-lbox-img" alt="Client transformation, before and after" data-lbox-img src={baCards[0]} width={1000} height={1000} />
-          <button className="s06-lbox-nav s06-lbox-next" type="button" aria-label="Next" data-lbox-nav="1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
-          <div className="s06-lbox-counter" data-lbox-counter>
-            1 / {baCards.length}
+      <LightboxShell kind="bacar" pool={baCards} alt="Client transformation, before and after" />
+      {chatPool.length > 0 && <LightboxShell kind="chatcar" pool={chatPool} alt="Client chat with Kunal" />}
+    </section>
+  );
+}
+
+/**
+ * One auto-scrolling image rail. `kind` groups rails that share a lightbox;
+ * `dir` sets the drift (1 = left→right, -1 = right→left), read by ClientBehaviors
+ * from `data-carousel-dir`. `data-ba-idx` is the card's index in `pool`, so the
+ * lightbox steps through unique images even when a rail repeats some.
+ */
+function ImageRail({
+  kind,
+  dir,
+  srcs,
+  pool,
+  alt,
+  chat = false,
+}: {
+  kind: string;
+  dir: 1 | -1;
+  srcs: readonly string[];
+  pool: readonly string[];
+  alt: string;
+  chat?: boolean;
+}) {
+  return (
+    <div className={`sdp-wrap s06-bacar-wrap${chat ? " s06-chatcar-wrap" : ""}`}>
+      <div className="s06-bacar" data-carousel={kind} data-carousel-dir={dir} data-sdp-reveal>
+        <div className="s06-bacar-track" data-carousel-track>
+          <div className="s06-bacar-set" data-carousel-set>
+            {srcs.map((src, pos) => {
+              const idx = pool.indexOf(src);
+              return (
+                <div
+                  className={`s06-ba-card${chat ? " s06-chat-card" : ""}`}
+                  key={`${pos}-${src}`}
+                  data-ba-idx={idx}
+                  data-ba-src={src}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Open ${chat ? "client chat" : "client transformation"} ${idx + 1}`}
+                >
+                  <div className="s06-ba-img">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={alt} width={1000} height={1000} loading="lazy" decoding="async" draggable={false} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  );
+}
+
+/** Lightbox overlay shell — inert until ClientBehaviors adds `.on`. */
+function LightboxShell({ kind, pool, alt }: { kind: string; pool: readonly string[]; alt: string }) {
+  return (
+    <div className="s06-lbox" data-lbox={kind} role="dialog" aria-modal="true" aria-hidden="true" hidden>
+      <div className="s06-lbox-content">
+        <button className="s06-lbox-close" type="button" aria-label="Close" data-lbox-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <button className="s06-lbox-nav s06-lbox-prev" type="button" aria-label="Previous" data-lbox-nav="-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="s06-lbox-img" alt={alt} data-lbox-img src={pool[0]} width={1000} height={1000} />
+        <button className="s06-lbox-nav s06-lbox-next" type="button" aria-label="Next" data-lbox-nav="1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+        <div className="s06-lbox-counter" data-lbox-counter>
+          1 / {pool.length}
+        </div>
+      </div>
+    </div>
   );
 }

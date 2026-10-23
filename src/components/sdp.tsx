@@ -1,7 +1,5 @@
 import { site } from "@/lib/site";
-import { ctaBadges } from "@/lib/content";
-import { Glyph } from "./icons";
-import { OfferTimer } from "./OfferTimer";
+import { ctaLabel, ctaScarcity } from "@/lib/content";
 
 /** Plain arrow glyph for the CTA's circular chip (no ".arrow" class so it
  *  doesn't inherit the SDP circle styling meant for its wrapper). */
@@ -33,53 +31,31 @@ export function SdpHead({
 }
 
 /**
- * THE CTA LOCKUP — one group, reused verbatim after every proof beat (~6x).
+ * THE CTA LOCKUP — one group, reused verbatim at every CTA on the page.
  *
- * FIXED ORDER, client-specified, identical at every occurrence on the page:
- *   1. the button
- *   2. the three reassurance badges
- *   3. the urgency countdown
+ * Per the Marathi copy doc ("Kunal Project File.md") every CTA is the same two
+ * lines: the button ("Book Your Free 1:1 Fitness Strategy Call") and the italic
+ * scarcity line under it ("Limited consultation slots available each week.").
+ * The three reassurance badges and the rolling countdown that used to sit here
+ * belonged to the High-Performer funnel and are not in this doc, so they are no
+ * longer rendered (OfferTimer is left in the repo, unused).
  *
- * The monthly-capacity pill and the "diagnostic session, not a pitch" note used
- * to close this group; both were removed at the client's request.
- *
- * Keeping the countdown inside the lockup rather than only in the hero is what
- * makes the group repeatable; every timer instance reads the same localStorage
- * deadline, so they all show the same number and stay in sync.
- *
- * Button label and badges are the funnel md's own. The md prints the badges with
- * emoji; they render here as the repo's line glyphs, because the skin brief bans
- * emoji in chrome.
- *
- * NO PAYMENT. This funnel takes none: the button carries `data-qualify-open`,
- * so QualifyModal intercepts the click and runs the six-step qualifier, then
- * hands off to /book-a-call. The href IS /book-a-call, which is what makes the
- * interception safe — with JS off the link books directly.
+ * NO PAYMENT. The button carries `data-qualify-open`, so QualifyModal intercepts
+ * the click and runs the qualifier, then hands off to /book-a-call. The href IS
+ * /book-a-call, which is what makes the interception safe — with JS off the link
+ * books directly.
  */
 export function CtaLockup() {
   return (
     <div className="sdp-lockup">
       <a className="sdp-cta" href={site.bookUrl} data-qualify-open>
         <span className="sdp-cta-main">
-          <span className="cta-label">
-            Click Here To Get Your Personalised High-Performer Fitness Roadmap
-          </span>
+          <span className="cta-label">{ctaLabel}</span>
           <span className="arrow"><ArrowGlyph /></span>
         </span>
       </a>
 
-      <div className="sdp-risk-strip">
-        {ctaBadges.map((b) => (
-          <span className="sdp-risk-badge" key={b.label}>
-            <span className="sdp-risk-icon-gold">
-              <Glyph name={b.icon} size={15} />
-            </span>
-            {b.label}
-          </span>
-        ))}
-      </div>
-
-      <OfferTimer />
+      <p className="sdp-cta-scarcity">{ctaScarcity}</p>
     </div>
   );
 }

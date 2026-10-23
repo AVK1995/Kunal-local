@@ -1,9 +1,10 @@
 /**
- * S07 — Founder authority / "Meet Your Coach" (DARK band).
+ * S07 — Founder authority / "Meet Kunal Chalke" (DARK band).
  *
- * Copy source: "Kunal Full Funnel Seggregation.md" → MEET YOUR COACH. The
- * credential list (ACSM, ASCA Level 1, INFS, HYROX Head Judge) and both bio
- * paragraphs are verbatim from that document.
+ * Copy source: "Kunal Project File.md" (Marathi funnel) → MEET KUNAL CHALKE.
+ * The credential line and Kunal's first-person story (with its bold runs) are
+ * verbatim from that document. The photo is Kunal with Yashasvi Jaiswal — the
+ * story's "worked with international cricketers" claim, shown.
  *
  * The single HYROX certificate figure the previous build carried is replaced by
  * the md's five-item press + certification row, running as a slow left-to-right
@@ -21,28 +22,20 @@
  * Server component. No client JS of its own.
  */
 import Image from "next/image";
-import { founderPills, founderStory, credentials } from "@/lib/content";
+import { founderPills, credentials } from "@/lib/content";
+import { site } from "@/lib/site";
 import { ArrowGlyph } from "./sdp";
-
-const [intro, bio, closing] = founderStory;
-
-/* SDP's closing block leads with a bolded claim, then the plain-weight rest.
-   founderStory[2] has the same shape, so the lead sentence is split off. */
-const closingLeadEnd = closing.indexOf(". ") + 1;
-const closingLead = closing.slice(0, closingLeadEnd);
-const closingRest = closing.slice(closingLeadEnd);
 
 export function Founder() {
   return (
     <section id="founder" className="s07-founder sdp-dark">
       <div className="sdp-wrap">
         <div className="sdp-eyebrow center" data-sdp-reveal>
-          Meet Your Coach
+          Meet Kunal Chalke
         </div>
         <h2 className="sdp-h2" data-sdp-reveal style={{ "--d": ".06s" } as React.CSSProperties}>
-          Athlete-Turned-Coach Who Built A Fitness System
-          <br />
-          For <em>High Performers.</em>
+          The Athlete-Turned-Coach Helping
+          <br className="brk-desktop" /> <em>Busy Men Get Back In Shape</em>
         </h2>
 
         <p
@@ -50,7 +43,8 @@ export function Founder() {
           data-sdp-reveal
           style={{ "--d": ".12s" } as React.CSSProperties}
         >
-          {intro}
+          Kunal Chalke is an ACSM Certified Fitness Professional, ASCA Level 1 Strength &amp;
+          Conditioning Coach, INFS Certified Fitness &amp; Nutrition Coach and HYROX Head Judge.
         </p>
 
         <div className="s07-founder-grid">
@@ -61,21 +55,16 @@ export function Founder() {
           >
             <div className="s07-founder-photo">
               <Image
-                className="s07-founder-img"
-                src="/kunal-coach.jpg"
-                alt="Kunal Chalke, coach and founder of Kraft With Kunal"
-                width={1050}
-                height={1400}
+                className="s07-founder-img s07-founder-img--top"
+                src="/kunal-yashasvi.png"
+                alt="Kunal Chalke with Indian international cricketer Yashasvi Jaiswal"
+                width={333}
+                height={548}
                 sizes="(max-width: 640px) 220px, (max-width: 960px) 280px, 340px"
               />
             </div>
 
             <div className="s07-founder-body">
-              <div className="s07-founder-name">KUNAL CHALKE</div>
-              <div className="s07-founder-role">
-                Athlete-Turned-Fitness Coach · HYROX Head Judge
-              </div>
-
               <ul className="s07-founder-pills">
                 {founderPills.map((p) => (
                   <li className="s07-founder-pill" key={p}>
@@ -84,7 +73,43 @@ export function Founder() {
                 ))}
               </ul>
 
-              <p className="s07-founder-bio">{bio}</p>
+              {/* Kunal's own voice, first person and italic as set in the copy doc. */}
+              <blockquote className="s07-founder-story">
+                <p>
+                  Having <strong>worked with international cricketers, athletes and business
+                  professionals</strong>, I&rsquo;ve seen how the right combination of training,
+                  nutrition and recovery can completely transform someone&rsquo;s fitness.
+                </p>
+                <p>
+                  But I also understand that <strong>a 40-year-old businessman or senior
+                  professional cannot live like an athlete</strong>. Between long working hours,
+                  business travel and family responsibilities, following a strict diet and spending
+                  hours in the gym simply isn&rsquo;t practical.
+                </p>
+                <p>
+                  <strong>Being Marathi myself, I understand our food and lifestyle.</strong>{" "}
+                  Poli-Bhaji, Varan-Bhaat, Bhakri, family gatherings and festive meals are a normal
+                  part of our lives. And I don&rsquo;t believe you should have to give them up just
+                  to get fit.
+                </p>
+                <p>
+                  <strong>That&rsquo;s why I developed my MARATHI Framework</strong>, bringing the
+                  principles of elite-level strength and conditioning into a personalised fitness
+                  system built around the food Marathi men eat, the schedules they manage and the
+                  responsibilities they carry.
+                </p>
+                <p>
+                  Today, <strong>I&rsquo;ve coached {site.successStories} clients</strong>, helping
+                  them lose excess weight, build strength and develop fitness routines that work
+                  alongside their demanding careers.
+                </p>
+                <p>
+                  Because I don&rsquo;t believe getting fit should mean giving up the lifestyle
+                  you&rsquo;ve worked so hard to build. My job is to help you get stronger and
+                  healthier within it.
+                </p>
+                <footer className="s07-founder-sign">Kunal Chalke</footer>
+              </blockquote>
             </div>
           </div>
         </div>
@@ -210,16 +235,6 @@ export function Founder() {
         </div>
       </div>
 
-      <div className="sdp-wrap">
-        <div
-          className="s07-founder-closing"
-          data-sdp-reveal
-          style={{ "--d": ".28s" } as React.CSSProperties}
-        >
-          <strong>{closingLead}</strong>
-          {closingRest}
-        </div>
-      </div>
     </section>
   );
 }

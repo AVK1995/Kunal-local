@@ -2,9 +2,9 @@
  * S02 — Trust strip. Light bar directly under the trust banner (S01) and above the
  * header (S03): reviewer avatar cluster + the rating + the guarantee.
  *
- * Copy: "Kunal Full Funnel Seggregation.md" hero strip line 2 —
- * "[Photos] ★★★★★ 5.0 Review | 100% Results Guarantee". The rating and the
- * guarantee are now client-confirmed, so both former <Gap>s are retired.
+ * Copy: "Kunal Project File.md" strip line 2 —
+ * "5.0 ⭐ CLIENT RATING | 100% RESULTS GUARANTEE | BUILT FOR MARATHI MEN",
+ * led by the reviewer avatar cluster.
  *
  * The md marked the reviewer portraits as "[Photos]" without supplying any. They
  * now come from the SAME source as the testimonial tiles: the real opening frame
@@ -16,7 +16,7 @@
  * fold, so it must paint immediately.
  */
 import { site } from "@/lib/site";
-import { testimonialAvatarCrop } from "@/lib/content";
+import { testimonialAvatarCrop, trustLine2Audience } from "@/lib/content";
 import { vimeoThumbs } from "@/lib/vimeo";
 
 export default async function S02TrustStrip() {
@@ -65,7 +65,7 @@ export default async function S02TrustStrip() {
           ))}
         </span>
         <span>
-          <b>{site.clientRating}</b> Review
+          <b>{site.clientRating}</b> Client Rating
         </span>
       </div>
 
@@ -79,6 +79,16 @@ export default async function S02TrustStrip() {
         <span>
           <b>100%</b> Results Guarantee
         </span>
+      </div>
+
+      <div className="s02-trust-strip-item s02-trust-strip-audience">
+        <span className="s02-trust-strip-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+          </svg>
+        </span>
+        <span>{trustLine2Audience}</span>
       </div>
     </div>
   );

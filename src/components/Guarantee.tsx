@@ -1,18 +1,17 @@
 /**
  * S10 — Guarantee (dark band).
  *
- * Copy source: "Kunal Full Funnel Seggregation.md" → "100% Results Guarantee".
- * This REPLACES the previous four-week rebuild guarantee, which came from the
- * older offer draft: the client-signed md commits to a full refund if the
- * 8-12 kilo / 90-day outcome isn't hit, and lists three qualifying conditions.
- * Both former <Gap> placeholders (terms + fee treatment) are therefore retired —
- * the md answers them.
+ * Copy source: "Kunal Project File.md" (Marathi funnel) → "100% RESULTS
+ * GUARANTEE / Achieve Your Fitness Goal. Or Get Your Money Back." The target is
+ * agreed per client before the programme begins (8–12 kilos for eligible
+ * clients, otherwise waist / recomposition / other measurable outcomes), and
+ * the refund applies under the guarantee terms when the client has done their
+ * part.
  *
- * The same promise is mirrored on /refund, the trust strip and the sticky bar;
- * all four read from `content.guarantee` so they cannot drift apart.
+ * The same promise is mirrored on /refund; both read from `content.guarantee`
+ * so they cannot drift apart.
  *
- * Server component. No client JS: reveal is emitted as `data-sdp-reveal`; the
- * icon hover-straighten is pure CSS. Fully readable with JS disabled.
+ * Server component. No client JS: reveal is emitted as `data-sdp-reveal`.
  */
 import { guarantee } from "@/lib/content";
 
@@ -35,31 +34,22 @@ export function Guarantee() {
             {guarantee.badge}
           </div>
 
-          {/* <h2 className="s10-title">
-            Hit The Outcome, Or <em>Every Rupee Comes Back.</em>
-          </h2> */}
+          <h2 className="s10-title">
+            {guarantee.titleLead} <em>{guarantee.titleAccent}</em>
+          </h2>
 
-          <p className="s10-primary">{guarantee.promise}</p>
+          {guarantee.body.map((p) => (
+            <p className="s10-primary s10-body" key={p}>
+              {p}
+            </p>
+          ))}
 
-          <div className="s10-terms">
-            <div className="s10-terms-label">{guarantee.qualifyLabel}</div>
-            <ul className="s10-terms-list">
-              {guarantee.qualify.map((q, i) => (
-                <li key={i}>
-                  <span className="s10-ck" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </span>
-                  <span>{q}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <p className="s10-extra">
-            The only way this fails is if the work doesn&rsquo;t happen.
+          <p className="s10-primary s10-body">
+            {guarantee.conditionLead}
+            <strong>{guarantee.conditionBold}</strong>
           </p>
+
+          <p className="s10-extra">{guarantee.footnote}</p>
         </div>
       </div>
     </section>
