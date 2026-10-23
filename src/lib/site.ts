@@ -118,8 +118,8 @@ export const site = {
   ],
 } as const;
 
-/** "8-12" — the kilo range as printed in the H1, guarantee and FAQ. */
-export const kiloRange = `${site.kilosLow}-${site.kilosHigh}`;
+/** "8–12" — the kilo range as printed in the H1, guarantee and FAQ (en dash, per the copy doc). */
+export const kiloRange = `${site.kilosLow}–${site.kilosHigh}`;
 
 /**
  * The /checkout "special offer" block.
@@ -155,4 +155,4 @@ export const offer = {
   percentOff: hasAnchor ? Math.round(((anchorRaw - feeNum) / anchorRaw) * 1000) / 10 : 0,
 } as const;
 
-export const CTA_LABEL = `Book your assessment — ${site.assessmentFee}`;
+export const CTA_LABEL = "Book Your Free 1:1 Fitness Strategy Call";

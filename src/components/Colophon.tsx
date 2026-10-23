@@ -17,7 +17,7 @@
  *   this file replaces.
  * - Meta / FACEBOOK / INSTAGRAM trademark notice — generic, factually true of any
  *   non-Meta site; kept because SDP ships it and Kraft runs Meta traffic.
- * - Brand + year from `site.brand`; legal routes /privacy, /terms, /refund exist.
+ * - Brand + year from `site.brand`; legal routes /privacy, /terms exist (/refund is hidden: the call is free).
  * No unconfirmed number, name or claim appears, so no <Gap> is emitted.
  *
  * Server component. No client JS: the footer is static in SDP too (no
@@ -53,8 +53,6 @@ export function Colophon() {
           <Link href="/privacy">Privacy Policy</Link>
           <span aria-hidden="true"> · </span>
           <Link href="/terms">Terms &amp; Conditions</Link>
-          <span aria-hidden="true"> · </span>
-          <Link href="/refund">Refund Policy</Link>
         </div>
       </div>
     </footer>

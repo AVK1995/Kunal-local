@@ -1,20 +1,14 @@
-import { fitYes } from "@/lib/content";
-import { CtaLockup } from "./sdp";
+import { soundsLikeYou, soundsLikeYouClose } from "@/lib/content";
 
 /* ================================================================
-   S05 — WHO THIS IS FOR
+   S05 — "DOES THIS SOUND LIKE YOU?"
    SDP ref: `WhoThisIsFor` — _reference/sdp/components/landing/LandingPage.tsx:666-698
-   CSS ref: _reference/sdp/app/landing.css:800-853 (+ 2347-2352, 2441, 2712-2717, 2810-2816)
+   CSS ref: _reference/sdp/app/landing.css:800-853
 
-   Structure reproduced 1:1 from SDP: section > .sdp-wrap > [center-wrap > eyebrow]
-   + h2 + <ul> of check-rows + CTA slot. Reveal delays are SDP's shipped values
-   (h2 .06s; list .04/.10/.16/.22/.28s; CTA .34s). Server component — behaviour is
-   delegated (data-sdp-reveal only).
-
-   Copy = Kraft (content.ts fitYes / notForYou / incomeLine + funnel-copy
-   01-landing-vsl.v2-nobrainer.md BEAT 2). SDP's rows are one paragraph with a bold
-   lead-in; Kraft's rows carry the same shape as head + body, so head renders as the
-   <strong> lead-in and body as the run-on — same DOM as SDP.
+   Copy: "Kunal Project File.md" (Marathi funnel) — six rows, each a bold lead-in
+   + run-on, closed by "If you relate to these situations…". The doc places no
+   CTA here, so the lockup that used to close this section is gone.
+   Server component — behaviour is delegated (data-sdp-reveal only).
 ================================================================ */
 
 /** SDP's inline check glyph — landing.css sizes it via `.ck svg` (13px, stroke-width 3). */
@@ -26,32 +20,22 @@ function WhoCheck() {
   );
 }
 
-const DELAYS = [".04s", ".10s", ".16s", ".22s", ".28s"] as const;
+const DELAYS = [".04s", ".10s", ".16s", ".22s", ".28s", ".34s"] as const;
 
 export function WhoFor() {
   return (
     <section id="who-for" className="s05-who sdp-light">
       <div className="sdp-wrap s05-wrap">
-        <div className="s05-center-wrap">
-          <div className="sdp-eyebrow center" data-sdp-reveal>
-            For high-performing businessmen &amp; senior professionals
-          </div>
-        </div>
-
-        <h2
-          className="sdp-h2"
-          data-sdp-reveal
-          style={{ "--d": ".06s" } as React.CSSProperties}
-        >
-          This Is For You <em>If:</em>
+        <h2 className="sdp-h2" data-sdp-reveal>
+          Does This Sound <em>Like You?</em>
         </h2>
 
         <ul className="s05-who-list">
-          {fitYes.map((f, i) => (
+          {soundsLikeYou.map((f, i) => (
             <li
               key={f.head}
               data-sdp-reveal
-              style={{ "--d": DELAYS[i] ?? ".28s" } as React.CSSProperties}
+              style={{ "--d": DELAYS[i] ?? ".34s" } as React.CSSProperties}
             >
               <span className="ck">
                 <WhoCheck />
@@ -63,13 +47,9 @@ export function WhoFor() {
           ))}
         </ul>
 
-        <div
-          className="s05-who-cta"
-          data-sdp-reveal
-          style={{ "--d": ".34s" } as React.CSSProperties}
-        >
-          <CtaLockup />
-        </div>
+        <p className="s05-who-close" data-sdp-reveal style={{ "--d": ".38s" } as React.CSSProperties}>
+          {soundsLikeYouClose}
+        </p>
       </div>
     </section>
   );

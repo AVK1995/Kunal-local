@@ -1,8 +1,8 @@
 import { faqs } from "@/lib/content";
-import { CtaLockup } from "./sdp";
 
 /**
- * S11 — FAQ ("Common Questions").
+ * S11 — FAQ ("Questions Busy Men Commonly Ask", Marathi copy doc). The closing
+ * CTA now lives in the FinalCta section that follows.
  *
  * SDP reference: `_reference/sdp/components/landing/LandingPage.tsx:1655-1710`
  * (`LandingFAQ`) + `_reference/sdp/app/landing.css:1885-1939` (mobile 2359, 2548-2549;
@@ -33,9 +33,9 @@ export function EvenIf() {
           data-sdp-reveal
           style={{ "--d": ".06s" } as React.CSSProperties}
         >
-          COMMON QUESTIONS FROM 
+          Questions Busy Men
           <br className="brk-mobile" />{" "}
-          <em>HIGH-PERFORMING BUSINESSMEN & PROFESSIONALS</em>
+          <em>Commonly Ask</em>
         </h2>
 
         <div className="s11-list">
@@ -75,9 +75,6 @@ export function EvenIf() {
           ))}
         </div>
 
-        <div className="s11-faq-cta" data-sdp-reveal>
-          <CtaLockup />
-        </div>
       </div>
     </section>
   );

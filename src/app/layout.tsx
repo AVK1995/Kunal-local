@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Newsreader, Inter_Tight, JetBrains_Mono, Manrope } from "next/font/google";
+import { Bebas_Neue, Newsreader, Inter_Tight, JetBrains_Mono, Manrope, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import "./sections.css";
 // Loaded last: the review-round-2 overrides depend on winning by source order.
@@ -43,11 +43,20 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Fallback for the Marathi words in the copy (पोळी-भाजी, वरण-भात, भाकरी).
+// Sits after Manrope in `--fb`, so it only ever paints Devanagari glyphs.
+const devanagari = Noto_Sans_Devanagari({
+  variable: "--font-devanagari",
+  subsets: ["devanagari"],
+  weight: ["400", "600", "700", "800"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
-  title: "Kraft With Kunal | Lose 8-12 kilos in the next 90 days",
+  title: "Kraft With Kunal | Lose 8–12 kilos in 90 days, without giving up Poli-Bhaji",
   description:
-    "The High-Performer Protocol: 1:1 coaching for business owners and professionals 35+, built around travel, long workdays and client dinners. 200+ success stories, 100% Results Guarantee.",
+    "The MARATHI Framework: 1:1 fat-loss and strength coaching for Marathi working professionals, businessmen and entrepreneurs aged 35+. Maharashtrian-friendly nutrition, weekly check-ins with Kunal, 200+ clients coached, 100% Results Guarantee.",
   robots: { index: false, follow: false }, // pre-launch: keep out of search until assets/figures confirmed
 };
 
@@ -58,7 +67,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="dark"
-      className={`${bebas.variable} ${newsreader.variable} ${interTight.variable} ${jetbrains.variable} ${manrope.variable}`}
+      className={`${bebas.variable} ${newsreader.variable} ${interTight.variable} ${jetbrains.variable} ${manrope.variable} ${devanagari.variable}`}
     >
       <body>
         <Analytics />

@@ -32,7 +32,7 @@
  *
  * FIGURES: SDP's why-card stat row asserts "550+ Coached / 8 Yrs". Kraft's third
  * stat now carries the landing page's own confirmed track record
- * (`site.successStories` high-performers coached), so the two pages cannot drift.
+ * (`site.successStories` clients coached), so the two pages cannot drift.
  * SDP's "fewer than 30 new clients a quarter" is likewise not Kraft's number;
  * the confirmed `site.monthlySlots` capacity is used instead. SDP's six value
  * cards become Kraft's six CONFIRMED items (3 covers + 3 trust) — no filler.
@@ -73,7 +73,7 @@ function AnnounceMarquee() {
       <span className="dot" aria-hidden>·</span>
       <span>Free Reschedule Up To 24 Hours Before</span>
       <span className="dot" aria-hidden>·</span>
-      <span>Only <b>{site.monthlySlots}</b> Assessments Open Each Month</span>
+      <span>Only <b>{site.monthlySlots}</b> Strategy Calls Open Each Month</span>
       <span className="dot" aria-hidden>·</span>
     </>
   );
@@ -133,7 +133,7 @@ function Hero({ firstName }: { firstName: string }) {
    Calendar — SDP L225-255. `#calendar` is the smooth-scroll target.
    ============================================================ */
 const CAL_ITEMS: [string, string][] = [
-  ["1:1 with Kunal", "Not a team member. He runs every assessment himself."],
+  ["1:1 with Kunal", "Not a team member. He takes every strategy call himself."],
   ["Details in your inbox", "The call link and confirmation land the moment you book."],
   ["Free reschedule", "Up to 24 hours before, no questions."],
 ];
@@ -256,7 +256,7 @@ function SlotHelpSection() {
 const VALUE_CARDS: { title: string; body: string; icon: React.ReactNode }[] = [
   {
     title: "An Honest Read On What’s Stalling You",
-    body: "Not a generic diagnosis. Kunal looks at your training history, your markers, and your real week, and tells you where the block actually is.",
+    body: "Not a generic diagnosis. Kunal looks at your training history, your food habits, your markers and your real week, and tells you where the block actually is.",
     icon: (
       <>
         <circle cx="12" cy="12" r="10" />
@@ -279,7 +279,7 @@ const VALUE_CARDS: { title: string; body: string; icon: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Whether The Protocol Fits, Straight",
+    title: "Whether The MARATHI Framework Fits, Straight",
     body: "If it fits your life right now, he’ll tell you. If it doesn’t, he’ll tell you that too. You leave knowing where you stand, either way.",
     icon: (
       <>
@@ -290,7 +290,7 @@ const VALUE_CARDS: { title: string; body: string; icon: React.ReactNode }[] = [
   },
   {
     title: "1:1 With Kunal",
-    body: "Not a team member. He runs every assessment himself. That’s the whole point of keeping the numbers small.",
+    body: "Not a team member. He takes every strategy call himself. That’s the whole point of keeping the numbers small.",
     icon: <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />,
   },
   {
@@ -326,8 +326,8 @@ const VALUE_CARDS: { title: string; body: string; icon: React.ReactNode }[] = [
 //           A Real Diagnostic. <em>Not A Pitch.</em>
 //         </h2>
 //         <p className="sdp-sub" data-sdp-reveal style={{ ["--d" as string]: ".10s" }}>
-//           What your assessment covers: an honest read on your body, your week, and whether
-//           the Protocol is the right fit.
+//           What your strategy call covers: an honest read on your body, your week, and whether
+//           the MARATHI Framework is the right fit.
 //         </p>
 
 //         <div className="p02-value-grid">
@@ -375,20 +375,20 @@ function WhyCard() {
           <h2>The Hard Part Is <span className="p02-hl">Already Done.</span></h2>
 
           <p>
-            Here&rsquo;s the quiet trap: plenty of men pay, then leave the booking for
+            Here&rsquo;s the quiet trap: plenty of men apply, then leave the booking for
             &ldquo;later&rdquo;, and later is exactly the calendar that&rsquo;s kept them stuck
             for years.
           </p>
           <p>
-            Kunal runs every assessment himself, so there is a real ceiling on the week.{" "}
-            <span className="p02-hl">Only {site.monthlySlots} assessments open each month.</span>{" "}
+            Kunal takes every strategy call himself, so there is a real ceiling on the week.{" "}
+            <span className="p02-hl">Only {site.monthlySlots} strategy calls open each month.</span>{" "}
             The earlier you book, the better the slot you get.
           </p>
 
           <div className="p02-why-stat-row">
             <div className="p02-why-stat">
               <div className="p02-stat-n">{site.monthlySlots}</div>
-              <div className="p02-stat-l">Assessments Each Month</div>
+              <div className="p02-stat-l">Strategy Calls Each Month</div>
             </div>
             <div className="p02-why-stat">
               <div className="p02-stat-n">100%</div>
@@ -398,7 +398,7 @@ function WhyCard() {
               {/* Same confirmed figure the landing page runs on (site.successStories),
                   so the two pages can never quote different track records. */}
               <div className="p02-stat-n">{site.successStories}</div>
-              <div className="p02-stat-l">High-Performers Coached</div>
+              <div className="p02-stat-l">Clients Coached</div>
             </div>
           </div>
 
@@ -504,7 +504,7 @@ const FAQS: { q: string; a: React.ReactNode; open?: boolean }[] = [
     q: "Is the call directly with Kunal?",
     a: (
       <>
-        Yes. Every assessment is Kunal himself, not a team member.{" "}
+        Yes. Every strategy call is with Kunal himself, not a team member.{" "}
         <strong>That&rsquo;s the whole point of keeping the numbers small.</strong>
       </>
     ),
@@ -565,7 +565,7 @@ function FinalCTA() {
       <div className="sdp-wrap">
         <h2 data-sdp-reveal>
           You&rsquo;ve Applied.
-          <span className="p02-hl">Now Lock The Assessment.</span>
+          <span className="p02-hl">Now Lock Your Strategy Call.</span>
         </h2>
         <p data-sdp-reveal style={{ ["--d" as string]: ".08s" }}>
           The slot is the only thing standing between today and an honest hour on your

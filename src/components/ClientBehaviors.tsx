@@ -172,39 +172,45 @@ export function ClientBehaviors() {
       if (t.closest("[data-vmodal-close]") || t === vmodal) closeVideoModal();
     });
 
-    const lbox = document.querySelector<HTMLElement>("[data-lbox]");
-    const limg = lbox?.querySelector<HTMLImageElement>("[data-lbox-img]") ?? null;
-    const lcounter = lbox?.querySelector<HTMLElement>("[data-lbox-counter]") ?? null;
-    const baSrcs = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-carousel="bacar"] [data-carousel-set] [data-ba-idx]')
-    ).slice(0).reduce<string[]>((acc, el) => {
-      const i = parseInt(el.getAttribute("data-ba-idx") || "-1", 10);
-      const src = el.getAttribute("data-ba-src") || "";
-      if (i >= 0 && !acc[i]) acc[i] = src; // original set indices (clones share idx; first wins)
-      return acc;
-    }, []);
-    let lidx = 0;
-    const showL = (i: number) => {
-      if (!limg || baSrcs.length === 0) return;
-      const n = baSrcs.length; lidx = ((i % n) + n) % n;
-      limg.setAttribute("src", baSrcs[lidx]);
-      if (lcounter) lcounter.textContent = `${lidx + 1} / ${n}`;
-    };
-    const openLightbox = (i: number) => {
-      if (!lbox) return;
-      showL(i); lbox.hidden = false; lbox.classList.add("on");
-      lbox.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
-    };
-    const closeLightbox = () => {
-      if (!lbox) return;
-      lbox.classList.remove("on"); lbox.hidden = true;
-      lbox.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
-    };
-    if (lbox) on(lbox, "click", (e) => {
-      const t = e.target as HTMLElement;
-      if (t.closest("[data-lbox-close]") || t === lbox) { closeLightbox(); return; }
-      const nav = t.closest<HTMLElement>("[data-lbox-nav]");
-      if (nav) showL(lidx + parseInt(nav.getAttribute("data-lbox-nav") || "1", 10));
+    /* One lightbox per image group ([data-lbox="bacar"], [data-lbox="chatcar"]).
+       A group's pool is every [data-ba-idx] card in rails of the same kind;
+       several rails (e.g. the two before/after rows) can share one group. */
+    type Lightbox = { el: HTMLElement; open: (i: number) => void; close: () => void; step: (d: number) => void };
+    const lightboxes = new Map<string, Lightbox>();
+    document.querySelectorAll<HTMLElement>("[data-lbox]").forEach((lbox) => {
+      const group = lbox.getAttribute("data-lbox") || "";
+      const limg = lbox.querySelector<HTMLImageElement>("[data-lbox-img]");
+      const lcounter = lbox.querySelector<HTMLElement>("[data-lbox-counter]");
+      const srcs = Array.from(
+        document.querySelectorAll<HTMLElement>(`[data-carousel="${group}"] [data-carousel-set] [data-ba-idx]`)
+      ).reduce<string[]>((acc, el) => {
+        const i = parseInt(el.getAttribute("data-ba-idx") || "-1", 10);
+        const src = el.getAttribute("data-ba-src") || "";
+        if (i >= 0 && !acc[i]) acc[i] = src; // clones + repeats share idx; first wins
+        return acc;
+      }, []);
+      let lidx = 0;
+      const show = (i: number) => {
+        if (!limg || srcs.length === 0) return;
+        const n = srcs.length; lidx = ((i % n) + n) % n;
+        limg.setAttribute("src", srcs[lidx]);
+        if (lcounter) lcounter.textContent = `${lidx + 1} / ${n}`;
+      };
+      const open = (i: number) => {
+        show(i); lbox.hidden = false; lbox.classList.add("on");
+        lbox.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+      };
+      const close = () => {
+        lbox.classList.remove("on"); lbox.hidden = true;
+        lbox.setAttribute("aria-hidden", "true"); document.body.style.overflow = "";
+      };
+      on(lbox, "click", (e) => {
+        const t = e.target as HTMLElement;
+        if (t.closest("[data-lbox-close]") || t === lbox) { close(); return; }
+        const nav = t.closest<HTMLElement>("[data-lbox-nav]");
+        if (nav) show(lidx + parseInt(nav.getAttribute("data-lbox-nav") || "1", 10));
+      });
+      lightboxes.set(group, { el: lbox, open, close, step: (d) => show(lidx + d) });
     });
 
     /* ---- 4b. Testimonial tiles (S06) ----
@@ -278,7 +284,8 @@ export function ClientBehaviors() {
       const measure = () => { setW = origSet.getBoundingClientRect().width + gap(); };
       on(window, "resize", measure);
 
-      const dir = kind === "tcar" ? -1 : 1;
+      const dirAttr = parseInt(car.getAttribute("data-carousel-dir") || "", 10);
+      const dir = dirAttr === 1 || dirAttr === -1 ? dirAttr : kind === "tcar" ? -1 : 1;
       const speed = 0.45;
       let x = dir < 0 ? 0 : -setW;
       let paused = reduced;
@@ -332,7 +339,7 @@ export function ClientBehaviors() {
          a drag surface competing with vertical page scroll made the section
          awkward to get past. The certificates rail keeps its drag, and every
          rail keeps it on desktop. */
-      const proofRail = kind === "tcar" || kind === "bacar";
+      const proofRail = kind === "tcar" || kind === "bacar" || kind === "chatcar";
       const dragEnabled = !(proofRail && window.matchMedia("(max-width: 860px)").matches);
 
       if (dragEnabled) {
@@ -353,7 +360,8 @@ export function ClientBehaviors() {
           if (src) openVideoModal(src);
         } else {
           const card = (e.target as HTMLElement).closest<HTMLElement>("[data-ba-idx]");
-          if (card) openLightbox(parseInt(card.getAttribute("data-ba-idx") || "0", 10));
+          const lb = kind ? lightboxes.get(kind) : undefined;
+          if (card && lb) lb.open(parseInt(card.getAttribute("data-ba-idx") || "0", 10));
         }
       }, true);
     });
@@ -367,11 +375,12 @@ export function ClientBehaviors() {
         else if (ke.key === "ArrowRight") showCred(credIdx + 1);
         else if (ke.key === "ArrowLeft") showCred(credIdx - 1);
       }
-      if (lbox && !lbox.hidden) {
-        if (ke.key === "Escape") closeLightbox();
-        else if (ke.key === "ArrowRight") showL(lidx + 1);
-        else if (ke.key === "ArrowLeft") showL(lidx - 1);
-      }
+      lightboxes.forEach((lb) => {
+        if (lb.el.hidden) return;
+        if (ke.key === "Escape") lb.close();
+        else if (ke.key === "ArrowRight") lb.step(1);
+        else if (ke.key === "ArrowLeft") lb.step(-1);
+      });
     });
 
     /* ---- 6. Sticky CTA ----

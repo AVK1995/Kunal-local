@@ -87,7 +87,7 @@ function Hero() {
 
         <p className="dq-hero-sub" data-sdp-reveal style={{ ["--d" as string]: ".12s" }}>
           After going through your answers, it looks like the{" "}
-          <strong>High-Performer Programme may not be the right fit for you</strong> at this
+          <strong>MARATHI Framework programme may not be the right fit for you</strong> at this
           moment.
         </p>
       </div>

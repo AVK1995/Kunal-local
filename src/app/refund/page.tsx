@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { LegalLayout, LegalSection } from "@/components/LegalLayout";
+
+/* HIDDEN (2026-10-23): this funnel books a FREE strategy call, so a refund
+   policy for a paid booking does not apply. The route 404s and nothing links
+   here. Flip to true to bring the page back; the copy below is untouched. */
+const REFUND_PAGE_LIVE = false;
 
 export const metadata: Metadata = {
   title: "Refund Policy | Kraft With Kunal",
@@ -12,8 +18,10 @@ export const metadata: Metadata = {
    anchored section that feeds the TOC, the "and/must/will not apply if" blocks
    become the brass card lists, and the closing "Our Commitment" is elevated into
    the dark band (a guarantee mark replaces the default envelope). No sentence is
-   added, removed or reworded. */
+   added, removed or reworded, except that the programme name was changed from
+   "High-Performer" to the MARATHI Framework for the Marathi funnel (2026-10-23). */
 export default function RefundPage() {
+  if (!REFUND_PAGE_LIVE) notFound();
   return (
     <LegalLayout
       title="Refund Policy"
@@ -21,13 +29,13 @@ export default function RefundPage() {
       intro={
         <>
           <p>
-            At <strong>Kraft With Kunal</strong>, our mission is to help busy businessmen and senior
-            professionals achieve sustainable fat loss, build strength, and create a fitness system that
+            At <strong>Kraft With Kunal</strong>, our mission is to help busy Marathi working
+            professionals, businessmen and entrepreneurs achieve sustainable fat loss, build strength, and create a fitness system that
             lasts, without relying on crash diets or unrealistic workout routines.
           </p>
           <p>
             We stand behind our programme with a <strong>100% Results Guarantee</strong> because we are
-            confident in the High-Performer Protocol when it is followed consistently.
+            confident in the MARATHI Framework when it is followed consistently.
           </p>
         </>
       }
@@ -43,7 +51,7 @@ export default function RefundPage() {
         body: (
           <>
             <p>
-              The <strong>High-Performer Programme</strong> is built on honesty, science and accountability.
+              The <strong>MARATHI Framework programme</strong> is built on honesty, science and accountability.
             </p>
             <p>
               We don&rsquo;t promise shortcuts or unrealistic transformations. We believe lasting results
@@ -64,7 +72,7 @@ export default function RefundPage() {
       <LegalSection id="booking-fee" heading="1. The ₹97 Booking Fee">
         <p>
           The <strong>₹97</strong> paid on this website is a one-time booking fee for your personalised{" "}
-          <strong>1:1 High-Performer Fitness Strategy Call</strong> with Kunal Chalke.
+          <strong>1:1 Fitness Strategy Call</strong> with Kunal Chalke.
         </p>
         <p>
           As this fee reserves your consultation slot and covers the strategy call, it is{" "}
@@ -78,7 +86,7 @@ export default function RefundPage() {
 
       <LegalSection id="results-guarantee" heading="2. 90-Day Results Guarantee">
         <p>
-          If you enrol into the <strong>High-Performer Programme</strong> and:
+          If you enrol into the <strong>MARATHI Framework programme</strong> and:
         </p>
         <ul className="pol-list">
           <li>Complete the full 90-day programme,</li>

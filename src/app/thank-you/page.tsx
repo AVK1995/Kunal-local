@@ -41,7 +41,7 @@ import { site } from "@/lib/site";
 import "./thank-you.css";
 
 export const metadata: Metadata = {
-  title: "Your assessment is confirmed | Kraft With Kunal",
+  title: "Your strategy call is confirmed | Kraft With Kunal",
   robots: { index: false, follow: false },
 };
 
@@ -69,12 +69,12 @@ const COVER = [
   },
   {
     num: "04",
-    title: "The first four weeks, mapped",
+    title: `Your first ${site.promiseDays} days, mapped`,
     body: "What starting would actually look like in your life.",
   },
   {
     num: "05",
-    title: "Whether the Protocol fits, straight",
+    title: "Whether the MARATHI Framework fits, straight",
     body: (
       <>
         If it&rsquo;s right, <strong>Kunal tells you</strong>. If it isn&rsquo;t, he tells you that
@@ -154,7 +154,7 @@ function Hero() {
           </div>
 
           <h1 className="ty-h1" data-sdp-reveal style={{ "--d": ".10s" } as React.CSSProperties}>
-            Your assessment with Kunal is <em>confirmed.</em>
+            Your free strategy call with Kunal is <em>confirmed.</em>
           </h1>
 
           <p
@@ -182,7 +182,7 @@ function Hero() {
             </span>
             <div className="ty-booking-meta">
               <div className="ty-booking-label">Your session</div>
-              <div className="ty-booking-value">1:1 assessment with Kunal</div>
+              <div className="ty-booking-value">Free 1:1 fitness strategy call with Kunal</div>
             </div>
           </div>
 
@@ -323,7 +323,7 @@ function AboutTheCall() {
             You Get <em>His Eyes On Your Case.</em>
           </h3>
           <p className="ty-fee-body">
-            It&rsquo;s an assessment, not a sales call. Kunal looks at your history, your
+            It&rsquo;s a strategy call, not a sales call. Kunal looks at your history, your food habits, your
             schedule and your goals, and tells you straight: a fit or not. The
             questions you answered are the filter &mdash; they are what let him keep this
             free and still keep the numbers small.{" "}

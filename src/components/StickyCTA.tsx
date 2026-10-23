@@ -23,6 +23,7 @@
  */
 import { site } from "@/lib/site";
 import { ArrowGlyph } from "./sdp";
+import { ctaLabel } from "@/lib/content";
 
 export function StickyCTA() {
   return (
@@ -32,7 +33,7 @@ export function StickyCTA() {
           <span className="s13-pulse" aria-hidden="true" />
           <div className="s13-text">
             <div className="s13-h">
-              A body that matches <em>the life you built.</em>
+              Your fitness goal in {site.promiseDays} days, <em>or your programme is on me.</em>
             </div>
             <div className="s13-s">
               <span className="s13-badge">
@@ -50,7 +51,7 @@ export function StickyCTA() {
                   <polygon points="12 2 15 8.5 22 9.3 17 14 18.3 21 12 17.5 5.7 21 7 14 2 9.3 9 8.5 12 2" />
                 </svg>
                 <span>
-                  <b>{site.successStories}</b> Success Stories
+                  <b>{site.successStories}</b> Clients Coached
                 </span>
               </span>
             </div>
@@ -59,7 +60,7 @@ export function StickyCTA() {
 
         <a className="sdp-cta s13-cta" href={site.bookUrl} data-qualify-open>
           <span className="sdp-cta-main">
-            <span className="cta-label s13-cta-text">Click Here To Get Your Personalised High-Performer Fitness Roadmap</span>
+            <span className="cta-label s13-cta-text">{ctaLabel}</span>
             <span className="arrow">
               <ArrowGlyph />
             </span>

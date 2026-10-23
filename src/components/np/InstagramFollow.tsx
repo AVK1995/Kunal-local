@@ -22,7 +22,7 @@ import { instagram } from "@/lib/qualify";
 const REASONS = [
   <>The same <em>system thinking</em> this page is built on, broken down post by post.</>,
   <>How to train and eat around travel, client dinners and a 12-hour day — not around a rest week that never comes.</>,
-  <>Real transformations from business owners and senior professionals, with what actually changed.</>,
+  <>Real transformations from Marathi working professionals and businessmen, with what actually changed.</>,
 ];
 
 function CheckGlyph() {
