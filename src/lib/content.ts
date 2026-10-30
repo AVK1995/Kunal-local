@@ -22,11 +22,11 @@ export const trustLine1 = [
   "Trained International Cricketers",
 ] as const;
 
-export const trustLine2Audience = "Built For Marathi Men";
+export const trustLine2Audience = "Built For Marathi Working Professionals";
 
 /* ---- Hero ---- */
 export const hero = {
-  callout: "For Marathi Working Professionals, Businessmen & Entrepreneurs Aged 35+",
+  callout: "For Marathi Working Professionals & Entrepreneurs Aged 35+",
   promise: `Achieve Your Fitness Goal In ${site.promiseDays} Days. Or Your Programme Is On Me.`,
   noGivingUp: "No giving up Poli-Bhaji, Varan-Bhaat or Bhakri. No crash diets. No endless hours in the gym.",
   coach: {
@@ -58,7 +58,7 @@ export const soundsLikeYou = [
     body: "Between office hours, business meetings and family responsibilities, you've barely found time to take care of yourself.",
   },
   {
-    head: "Your shirts and trousers don't fit the way they used to.",
+    head: "Your clothes don't fit the way they used to.",
     body: "You've started buying bigger sizes, and you know you've gained more weight than you're comfortable with.",
   },
   {
@@ -80,7 +80,7 @@ export const soundsLikeYou = [
 ] as const;
 
 export const soundsLikeYouClose =
-  "If you relate to these situations, this programme was designed for men like you.";
+  "If you relate to these situations, this programme was designed for people like you.";
 
 /* ---- The MARATHI Framework — seven letters. The doc sets the final "I"
    (Initial Body Assessment) apart as a full-width row; `wide` carries that. ---- */
@@ -194,7 +194,7 @@ export const credentials = [
    The doc asks for TWO rows of five (row 1 drifts left→right, row 2 right→left).
    Only four male transformation plates exist today (the three female plates —
    ba-2 Trupti, ba-4 Archana, ba-5 Manpreet — stay withdrawn; this funnel is
-   "Built For Marathi Men"). Until more plates are supplied, both rows draw from
+   "Built For Marathi Working Professionals"). Until more plates are supplied, both rows draw from
    the same four, in a different order so the two rows never line up.
    TO ADD PLATES: drop them in /public/transformations and list them below. */
 export const baCards = [
@@ -307,7 +307,7 @@ export const faqs = [
   },
   {
     q: "I work 10–12 hours a day. Will I realistically be able to follow this?",
-    a: "Yes, the programme is designed for busy working professionals and businessmen. Kunal will understand your weekly schedule and create a training and nutrition routine that fits your availability. You'll also have weekly reviews to make adjustments when work gets demanding.",
+    a: "Yes, the programme is designed for busy working professionals. Kunal will understand your weekly schedule and create a training and nutrition routine that fits your availability. You'll also have weekly reviews to make adjustments when work gets demanding.",
     mostAsked: false,
   },
   {

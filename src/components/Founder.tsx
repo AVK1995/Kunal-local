@@ -34,8 +34,8 @@ export function Founder() {
           Meet Kunal Chalke
         </div>
         <h2 className="sdp-h2" data-sdp-reveal style={{ "--d": ".06s" } as React.CSSProperties}>
-          The Athlete-Turned-Coach Helping
-          <br className="brk-desktop" /> <em>Busy Men Get Back In Shape</em>
+          The Athlete-Turned-Coach
+          <br className="brk-desktop" /> <em>Helping You Get Back In Shape.</em>
         </h2>
 
         <p
