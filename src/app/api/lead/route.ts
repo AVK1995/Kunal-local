@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
       disqualified_answer: primary ? (answers[primary.from as keyof typeof answers] ?? "") : "",
     };
 
-    /* ---- The four gates, PRE-RENDERED ------------------------------------
+    /* ---- The gate checklist, PRE-RENDERED ------------------------------------
        An earlier version shipped 28 separate gate1_label … gate4_border
        fields and expected the email template to assemble them. That is
        unmappable in Pabbly's UI, and the alternative — four IF/ELSE branches

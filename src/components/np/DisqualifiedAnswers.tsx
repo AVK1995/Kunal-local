@@ -10,7 +10,7 @@ import {
 import { site } from "@/lib/site";
 
 /**
- * "Here's why it wasn't approved" — all four gates as a pass/fail checklist,
+ * "Here's why it wasn't approved" — the gate(s) as a pass/fail checklist,
  * green for met and red for not, each quoting the applicant's own answer.
  *
  * Reads the same GATES_IN_FORM_ORDER and GATE_STYLE the router and the
@@ -60,11 +60,26 @@ export function DisqualifiedAnswers() {
   const name = answers?.firstName?.trim();
   const failedCount = useMemo(() => (answers ? failedRules(answers).length : 0), [answers]);
 
+  /* Copy follows the gate count, so softening or tightening the routing in
+     qualify.ts never leaves this page saying "all four" over one criterion. */
+  const total = GATES_IN_FORM_ORDER.length;
+  const single = total === 1;
+  const totalWord = ["zero", "one", "two", "three", "four", "five", "six"][total] ?? String(total);
+
   return (
     <div className="dq-crit" data-sdp-reveal style={{ ["--d" as string]: ".08s" }}>
       <p className="dq-crit-intro">
-        We book calls with people who meet <strong>all four</strong> of these. Here is how
-        your answers landed.
+        {single ? (
+          <>
+            We book calls with people who meet <strong>this criterion</strong>. Here is how
+            your answer landed.
+          </>
+        ) : (
+          <>
+            We book calls with people who meet <strong>all {totalWord}</strong> of these. Here is
+            how your answers landed.
+          </>
+        )}
       </p>
 
       <ol className="dq-crit-list">
@@ -86,9 +101,12 @@ export function DisqualifiedAnswers() {
                     Pabbly identifiers from the original PDF and no longer
                     match the on-screen question order, so showing "Q8" here
                     would point at a question the applicant never saw. */}
-                <span className="dq-crit-num" aria-hidden="true">
-                  {i + 1}
-                </span>
+                {/* A lone "1" beside a single criterion reads as a mistake. */}
+                {!single && (
+                  <span className="dq-crit-num" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                )}
                 <p className="dq-crit-text">{rule.label}</p>
                 {s && (
                   <span
@@ -129,16 +147,19 @@ export function DisqualifiedAnswers() {
 
       {!loading && answers && (
         <p className="dq-crit-verdict">
-          {failedCount === 1
-            ? "You didn’t meet one of these four."
-            : `You didn’t meet ${failedCount} of these four.`}
+          {single
+            ? "This is the one criterion we book calls on."
+            : failedCount === 1
+              ? `You didn’t meet one of these ${totalWord}.`
+              : `You didn’t meet ${failedCount} of these ${totalWord}.`}
         </p>
       )}
 
       {!loading && !answers && (
         <p className="dq-crit-lost">
-          We couldn&rsquo;t load your answers on this device, so the four criteria are shown
-          without your responses. Your application reached Kunal either way. Questions go to{" "}
+          We couldn&rsquo;t load your answers on this device, so{" "}
+          {single ? "the criterion is" : `the ${totalWord} criteria are`} shown without your
+          responses. Your application reached Kunal either way. Questions go to{" "}
           <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>.
         </p>
       )}
