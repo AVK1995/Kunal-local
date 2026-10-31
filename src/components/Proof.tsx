@@ -78,18 +78,13 @@ export async function Proof() {
   return (
     <section id="proof" className="sdp-section sdp-light s06-proof">
       <div className="sdp-wrap">
-        <div className="sdp-center">
-          <div className="sdp-eyebrow center" data-sdp-reveal>
-            Not Fitness Influencers. Real Working Men. Real Transformations.
-          </div>
-        </div>
         <h2 className="sdp-h2" data-sdp-reveal style={{ ["--d" as string]: ".06s" }}>
           See How Busy Professionals Lost <span style={{ whiteSpace: "nowrap" }}>8–20 Kilos</span>{" "}
           <br className="brk-desktop" />
           <em>While Managing Their Careers &amp; Families</em>
         </h2>
         <p className="sdp-sub" data-sdp-reveal style={{ ["--d" as string]: ".10s" }}>
-          These are men who had demanding jobs, business responsibilities, travel schedules and
+          These are people who had demanding jobs, business responsibilities, travel schedules and
           families to look after. They didn&rsquo;t put their lives on hold to get fit.
         </p>
       </div>

@@ -15,7 +15,7 @@ export function LifeMismatch() {
     <section id="why" className="sdp-section sdp-dark s05b-why">
       <div className="sdp-wrap">
         <div className="sdp-eyebrow center" data-sdp-reveal>
-          Why Most Busy Men Struggle To Stay Fit
+          Why Most Busy Men &amp; Women Struggle To Stay Fit
         </div>
         <h2 className="sdp-h2" data-sdp-reveal style={{ "--d": ".06s" } as React.CSSProperties}>
           Your Fitness Plan Is Designed For

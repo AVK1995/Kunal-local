@@ -1,7 +1,7 @@
 import { faqs } from "@/lib/content";
 
 /**
- * S11 — FAQ ("Questions Busy Men Commonly Ask", Marathi copy doc). The closing
+ * S11 — FAQ ("Questions Busy Men & Women Commonly Ask", Marathi copy doc). The closing
  * CTA now lives in the FinalCta section that follows.
  *
  * SDP reference: `_reference/sdp/components/landing/LandingPage.tsx:1655-1710`
@@ -33,7 +33,7 @@ export function EvenIf() {
           data-sdp-reveal
           style={{ "--d": ".06s" } as React.CSSProperties}
         >
-          Questions Busy Men
+          Questions Busy Men &amp; Women
           <br className="brk-mobile" />{" "}
           <em>Commonly Ask</em>
         </h2>
